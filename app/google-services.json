@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "477758386212",
+    "firebase_url": "https://smartfood-184220.firebaseio.com",
+    "project_id": "smartfood-184220",
+    "storage_bucket": "smartfood-184220.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477758386212:android:61da8fd367e19309",
+        "android_client_info": {
+          "package_name": "com.hackathonstuttgart.smartfoodapp.smartfoodapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477758386212-09ldkfpvq13138491o7icudc8jnve1kg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hackathonstuttgart.smartfoodapp.smartfoodapp",
+            "certificate_hash": "4442bc00f005c92e55bd3c991a526c6a6ae8b4f0"
+          }
+        },
+        {
+          "client_id": "477758386212-m5ufv9r8f62con8eju9otchvk42rev0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgIwx4jebWxH_5qW8PFb-HWc4ySWkJN64"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477758386212-m5ufv9r8f62con8eju9otchvk42rev0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
