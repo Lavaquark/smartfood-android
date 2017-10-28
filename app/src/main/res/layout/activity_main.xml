@@ -31,8 +31,6 @@
             android:text="@string/button_findRecipes"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:onClick="findRecipes"
-            android:align="@id/itemGrid"
-            />
+            android:onClick="findRecipes"/>
     </RelativeLayout>
 </LinearLayout>

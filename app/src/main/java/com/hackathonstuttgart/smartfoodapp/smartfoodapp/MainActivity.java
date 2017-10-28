@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -38,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private String TAG_LOGIN_SUCCESS = "LOGGED IN";
 
     private FirebaseAuth auth;
-    private GridView itemGrid;
+    private GridLayout itemGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        itemGrid = (GridView) findViewById(R.id.itemGrid);
+        itemGrid = (GridLayout) findViewById(R.id.itemGrid);
     }
 
     @Override
