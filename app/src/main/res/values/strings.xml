@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">SmartFoodApp</string>
+    <string name="app_name">Smart Food</string>
+    <string name="app_name_inventory">Smart Food: Inventory</string>
+    <string name="button_inventory">Inventory</string>
+    <string name="button_prev">&lt;</string>
+    <string name="button_next">&gt;</string>
+    <string name="inventory">Inventory</string>
+    <string name="recipes">Recipes</string>
+    <string name="button_findRecipes">Find recipes</string>
 </resources>
