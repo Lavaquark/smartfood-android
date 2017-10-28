@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView()
     {
-        itemGrid.getchildre
+        //itemGrid.getchildre
     }
 
     private void loginFirebase()
