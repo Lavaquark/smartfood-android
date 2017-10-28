@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private String TAG_LOGIN_SUCCESS = "LOGGED IN";
 
     private FirebaseAuth auth;
+    private GridView itemGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        itemGrid = (GridView) findViewById(R.id.itemGrid);
     }
 
     @Override
@@ -54,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
         {
 
         }
+    }
+
+    public void findRecipes(View view) {
+
+    }
+
+    private void updateView()
+    {
+        itemGrid.getchildre
     }
 
     private void loginFirebase()
