@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     String itemName = child.getKey();
 
                     Log.d(TAG_CHANGE_DATA, "Item name is: " + itemName);
+                    updateView();
                 }
             }
 
