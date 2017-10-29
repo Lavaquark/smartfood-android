@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView(List<Item> itemList)
     {
-        Log.d("NIX", "NIX");
-        //itemGrid.setAdapter();
+        //itemGrid.getchildre
     }
 
     private void loginFirebase()
@@ -116,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot child : dataSnapshot.child("items").getChildren())
                 {
                     String itemLabel = child.getKey();
-                    String name = itemHelper.getName(itemLabel);
+                    String name = itemHelper.getMapping(itemLabel);
                     Item item = new Item(itemLabel, name);
                     itemList.add(item);
                 }
-                updateView(itemList);
-            }
+                    updateView(itemList);
+                }
 
             @Override
             public void onCancelled(DatabaseError error) {
