@@ -27,10 +27,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String TAG_CANCEL = "CANCELLED";
-    private String TAG_CHANGE_DATA = "CHANGED";
-    private String TAG_LOGIN_FAIL = "LOGIN FAILED";
-    private String TAG_LOGIN_SUCCESS = "LOGGED IN";
+    private static final String TAG_CANCEL = "CANCELLED";
+    private static final String TAG_CHANGE_DATA = "CHANGED";
+    private static final String TAG_LOGIN_FAIL = "LOGIN FAILED";
+    private static final String TAG_LOGIN_SUCCESS = "LOGGED IN";
+
+    private static final String LABEL_APPLE = "apple";
+    private static final String LABEL_BANANA = "banana";
+    private static final String LABEL_ORANGE = "orange";
+    private static final String LABEL_MILK = "milk";
+    private static final String LABEL_COKE = "cola";
+
 
     private FirebaseAuth auth;
     private final ItemHelper itemHelper = new ItemHelper();
@@ -38,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
     public MainActivity()
     {
+        itemHelper.putMapping(LABEL_APPLE, LABEL_APPLE, R.drawable.apple);
+        itemHelper.putMapping(LABEL_ORANGE, LABEL_ORANGE, R.drawable.orange);
+        itemHelper.putMapping(LABEL_BANANA, LABEL_BANANA, R.drawable.banana);
+        itemHelper.putMapping(LABEL_MILK, LABEL_MILK, R.drawable.milk);
     }
 
     @Override
@@ -56,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (Exception ex)
         {
-
+            Toast.makeText(MainActivity.this, "An error occurred while retrieving the data from the database: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -67,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
     private void updateView(List<Item> itemList)
     {
         Log.d("NIX", "NIX");
-        //itemGrid.getchildre
+        //itemGrid.setAdapter();
     }
 
     private void loginFirebase()
     {
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
-        auth.signInWithEmailAndPassword("tom.dockle@hackathon-stuttgart.de", "tomdocklet")
+        auth.signInWithEmailAndPassword("tom.dockle@hackathon-stuttgart.de", "tomdockle")
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -105,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot child : dataSnapshot.child("items").getChildren())
                 {
                     String itemLabel = child.getKey();
-                    String name = itemHelper.getMapping(itemLabel);
+                    String name = itemHelper.getName(itemLabel);
                     Item item = new Item(itemLabel, name);
                     itemList.add(item);
                 }
