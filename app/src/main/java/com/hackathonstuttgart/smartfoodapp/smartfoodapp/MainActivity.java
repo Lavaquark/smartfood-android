@@ -1,13 +1,16 @@
 package com.hackathonstuttgart.smartfoodapp.smartfoodapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -28,6 +31,10 @@ import com.hackathonstuttgart.smartfoodapp.smartfoodapp.data.Item;
 import com.hackathonstuttgart.smartfoodapp.smartfoodapp.helper.ItemHelper;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private FirebaseAuth auth;
-    private final ItemHelper itemHelper = new ItemHelper();
+    private final ItemHelper itemHelper = ItemHelper.getInstance();
     private GridView itemGrid;
 
     public MainActivity()
@@ -56,12 +63,21 @@ public class MainActivity extends AppCompatActivity {
         itemHelper.putMapping(LABEL_ORANGE, LABEL_ORANGE, R.drawable.orange);
         itemHelper.putMapping(LABEL_BANANA, LABEL_BANANA, R.drawable.banana);
         itemHelper.putMapping(LABEL_MILK, LABEL_MILK, R.drawable.milk);
+
+        itemHelper.setExpiration(LABEL_MILK, 14);
+        itemHelper.setExpiration(LABEL_APPLE, 9);
+        itemHelper.setExpiration(LABEL_ORANGE, 7);
+        itemHelper.setExpiration(LABEL_BANANA, 5);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         itemGrid = (GridView) findViewById(R.id.itemGrid);
     }
 
@@ -109,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private void showItemDetailActivity(Item item)
+    {
+        Intent intent = new Intent(this, ItemDetailActivity.class);
+        startActivity(intent);
+
+    }
+
     private void setupFirebaseDatabase() throws FileNotFoundException {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         // Create a storage reference from our app
@@ -121,9 +144,24 @@ public class MainActivity extends AppCompatActivity {
                 // whenever data at this location is updated.
                 for(DataSnapshot child : dataSnapshot.child("items").getChildren())
                 {
+                    String dateString = child.child("historian").child("date").getValue(String.class);
+                    dateString = dateString.substring(0, dateString.indexOf('T'));
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
+                    Date date = new Date();
+                    try {
+                        date = format.parse(dateString);
+                    } catch (ParseException e) {
+
+                    }
                     String itemLabel = child.getKey();
                     String name = itemHelper.getName(itemLabel);
-                    Item item = new Item(itemLabel, name);
+                    int expirationDays = itemHelper.getExpiration(itemLabel);
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    cal.add(Calendar.DATE, expirationDays);
+
+                    Item item = new Item(itemLabel, name, date, cal.getTime());
                     itemList.add(item);
                 }
                 updateView(itemList);
@@ -188,9 +226,25 @@ public class MainActivity extends AppCompatActivity {
                 ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView);
                 titleTextView.setText(item.getDisplayName());
                 imageView.setImageResource(itemHelper.getImageId(item.getLabel()));
+                convertView.setOnClickListener(new ItemDetailClickListener(item));
+            }
+            return convertView;
+        }
+
+        private class ItemDetailClickListener implements View.OnClickListener
+        {
+            private final Item item;
+
+            ItemDetailClickListener(Item item)
+            {
+                this.item = item;
+                SmartFood.getInstance().clickedItem = item;
             }
 
-            return convertView;
+            @Override
+            public void onClick(View view) {
+                showItemDetailActivity(item);
+            }
         }
     }
 }
