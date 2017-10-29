@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setPadding(8, 8, 8, 8);
-                imageView.setBackgroundColor(0xFF0000FF);
+                imageView.setBackgroundColor(0xFFFFFF);
             } else {
                 imageView = (ImageView) convertView;
             }
