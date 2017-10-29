@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
     private String TAG_LOGIN_SUCCESS = "LOGGED IN";
 
     private FirebaseAuth auth;
-    private GridLayout itemGrid;
+    private GridView itemGrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        itemGrid = (GridLayout) findViewById(R.id.itemGrid);
+        itemGrid = (GridView) findViewById(R.id.itemGrid);
     }
 
     @Override
@@ -108,7 +109,12 @@ public class MainActivity extends AppCompatActivity {
                     String itemName = child.getKey();
 
                     Log.d(TAG_CHANGE_DATA, "Item name is: " + itemName);
-                    updateView();
+
+                    LinkedList<Item> itemList = new LinkedList<>();
+
+                    Item item;
+
+                    updateView(itemList);
                 }
             }
 
