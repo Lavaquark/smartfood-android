@@ -1,20 +1,15 @@
 package com.hackathonstuttgart.smartfoodapp.smartfoodapp;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,13 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hackathonstuttgart.smartfoodapp.smartfoodapp.data.Item;
+import com.hackathonstuttgart.smartfoodapp.smartfoodapp.helper.ItemHelper;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private String TAG_LOGIN_SUCCESS = "LOGGED IN";
 
     private FirebaseAuth auth;
+    private final ItemHelper itemHelper = new ItemHelper();
     private GridView itemGrid;
+
+    public MainActivity()
+    {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView(List<Item> itemList)
     {
+        Log.d("NIX", "NIX");
         //itemGrid.getchildre
     }
 
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     {
         auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();
-        auth.signInWithEmailAndPassword("tom.dockle@hackathon-stuttgart.de", "tomdockle")
+        auth.signInWithEmailAndPassword("tom.dockle@hackathon-stuttgart.de", "tomdocklet")
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -102,20 +99,17 @@ public class MainActivity extends AppCompatActivity {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                LinkedList<Item> itemList = new LinkedList<>();
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for(DataSnapshot child : dataSnapshot.child("items").getChildren())
                 {
-                    String itemName = child.getKey();
-
-                    Log.d(TAG_CHANGE_DATA, "Item name is: " + itemName);
-
-                    LinkedList<Item> itemList = new LinkedList<>();
-
-                    Item item;
-
-                    updateView(itemList);
+                    String itemLabel = child.getKey();
+                    String name = itemHelper.getMapping(itemLabel);
+                    Item item = new Item(itemLabel, name);
+                    itemList.add(item);
                 }
+                updateView(itemList);
             }
 
             @Override

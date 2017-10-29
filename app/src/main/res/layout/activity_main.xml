@@ -11,9 +11,9 @@
     <!--Smart Food Logo-->
     <ImageView
         android:id="@+id/header"
-        android:src="@drawable/logo_vegetables"
+        android:src="@drawable/logo"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:adjustViewBounds="true"/>
 
     <RelativeLayout
@@ -29,9 +29,9 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_findRecipes"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:onClick="findRecipes"/>
+            android:onClick="findRecipes"
+            android:text="@string/button_findRecipes" />
     </RelativeLayout>
 </LinearLayout>
