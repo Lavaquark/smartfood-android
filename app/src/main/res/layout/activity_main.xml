@@ -4,22 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10px"
     android:label="@string/app_name"
     android:orientation="vertical"
-    tools:context="com.hackathonstuttgart.smartfoodapp.smartfoodapp.MainActivity"
-    android:layout_margin="5dp">
+    tools:context="com.hackathonstuttgart.smartfoodapp.smartfoodapp.MainActivity">
 
     <!--Smart Food Logo-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
     <ImageView
         android:id="@+id/header"
-        android:src="@drawable/logo"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:adjustViewBounds="true"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo" />
 
         <GridView
             android:id="@+id/itemGrid"
@@ -29,11 +32,12 @@
             android:layout_margin="10dp"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:onClick="findRecipes"
+            android:layout_margin="10dp"
+            android:background="@color/buttonColor"
             android:text="@string/button_findRecipes" />
-    </RelativeLayout>
+    </LinearLayout>
+
 </LinearLayout>
