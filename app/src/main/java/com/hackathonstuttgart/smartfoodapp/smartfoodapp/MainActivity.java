@@ -1,11 +1,15 @@
 package com.hackathonstuttgart.smartfoodapp.smartfoodapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     public MainActivity()
     {
+        itemHelper.setDefaultImage(R.drawable.milk);
         itemHelper.putMapping(LABEL_APPLE, LABEL_APPLE, R.drawable.apple);
         itemHelper.putMapping(LABEL_ORANGE, LABEL_ORANGE, R.drawable.orange);
         itemHelper.putMapping(LABEL_BANANA, LABEL_BANANA, R.drawable.banana);
@@ -77,8 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView(List<Item> itemList)
     {
-        Log.d("NIX", "NIX");
-        //itemGrid.setAdapter();
+        itemGrid.setAdapter(new ImageAdapter(this, itemList));
     }
 
     private void loginFirebase()
@@ -130,5 +134,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //DatabaseReference items = dbRef.child("items").child("produce");
+    }
+
+    public class ImageAdapter extends BaseAdapter {
+        private final List<Item> itemList;
+        private final Context mContext;
+
+        public ImageAdapter(Context context, List<Item> items) {
+            itemList = items;
+            mContext = context;
+        }
+
+        public int getCount() {
+            return itemList.size();
+        }
+
+        public Object getItem(int position) {
+            return itemList.get(position);
+        }
+
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        // create a new ImageView for each item referenced by the Adapter
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ImageView imageView;
+            if (convertView == null) {
+                // if it's not recycled, initialize some attributes
+                imageView = new ImageView(mContext);
+                imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setPadding(8, 8, 8, 8);
+                imageView.setBackgroundColor(0xFF0000FF);
+            } else {
+                imageView = (ImageView) convertView;
+            }
+            Item item = (Item) getItem(position);
+            imageView.setImageResource(itemHelper.getImageId(item.getLabel()));
+            return imageView;
+        }
     }
 }

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:label="@string/app_name"
     android:orientation="vertical"
-    tools:context="com.hackathonstuttgart.smartfoodapp.smartfoodapp.MainActivity">
+    tools:context="com.hackathonstuttgart.smartfoodapp.smartfoodapp.MainActivity"
+    android:layout_margin="5dp">
 
     <!--Smart Food Logo-->
     <ImageView
@@ -24,7 +25,8 @@
             android:id="@+id/itemGrid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="auto_fit"/>
+            android:numColumns="auto_fit"
+            android:layout_margin="10dp"/>
 
         <Button
             android:layout_width="wrap_content"
