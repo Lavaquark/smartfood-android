@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -157,22 +159,38 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
 
-        // create a new ImageView for each item referenced by the Adapter
+//        // create a new ImageView for each item referenced by the Adapter
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            ImageView imageView;
+//            if (convertView == null) {
+//                // if it's not recycled, initialize some attributes
+//                imageView = new ImageView(mContext);
+//                imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
+//                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                imageView.setPadding(8, 8, 8, 8);
+//                imageView.setBackgroundColor(0xFFFFFF);
+//            } else {
+//                imageView = (ImageView) convertView;
+//            }
+//            Item item = (Item) getItem(position);
+//            imageView.setImageResource(itemHelper.getImageId(item.getLabel()));
+//            return imageView;
+//        }
+
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
-                imageView.setBackgroundColor(0xFFFFFF);
-            } else {
-                imageView = (ImageView) convertView;
-            }
             Item item = (Item) getItem(position);
-            imageView.setImageResource(itemHelper.getImageId(item.getLabel()));
-            return imageView;
+
+            if (convertView == null) {
+                LayoutInflater vi = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = vi.inflate(R.layout.griditem, null);
+                TextView titleTextView = (TextView) convertView.findViewById(R.id.titleTextView);
+                ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView);
+                titleTextView.setText(item.getDisplayName());
+                imageView.setImageResource(itemHelper.getImageId(item.getLabel()));
+            }
+
+            return convertView;
         }
     }
 }
