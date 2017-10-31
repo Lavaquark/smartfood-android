@@ -92,6 +92,20 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(MainActivity.this, "An error occurred while retrieving the data from the database: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        loadTestItems();
+    }
+
+    public void loadTestItems()
+    {
+        Date now = new Date();
+
+        LinkedList<Item> items = new LinkedList<Item>();
+        items.add(new Item("apple", "apple", now, ItemHelper.getExpirationDate(now, 2)));
+        items.add(new Item("apple", "apple", now, ItemHelper.getExpirationDate(now, -1)));
+        items.add(new Item("banana", "banana", now, ItemHelper.getExpirationDate(now, 0)));
+        items.add(new Item("orange", "orange", now, ItemHelper.getExpirationDate(now, 1)));
+        items.add(new Item("orange", "orange", now, ItemHelper.getExpirationDate(now, -2)));
+        updateView(items);
     }
 
     public void findRecipes(View view) {
@@ -127,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void showItemDetailActivity(Item item)
     {
+        SmartFood.getInstance().clickedItem = item;
         Intent intent = new Intent(this, ItemDetailActivity.class);
         startActivity(intent);
-
     }
 
     private void setupFirebaseDatabase() throws FileNotFoundException {
@@ -142,11 +156,10 @@ public class MainActivity extends AppCompatActivity {
                 LinkedList<Item> itemList = new LinkedList<>();
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                for(DataSnapshot child : dataSnapshot.child("items").getChildren())
+                for(DataSnapshot child : dataSnapshot.child("inventory").child("items").getChildren())
                 {
-                    String dateString = child.child("historian").child("date").getValue(String.class);
-                    dateString = dateString.substring(0, dateString.indexOf('T'));
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-dd-mm");
+                    String dateString = child.child("date_added").getValue(Long.class).toString();
+                    SimpleDateFormat format = new SimpleDateFormat("yyyyMMddkkmmss");
                     Date date = new Date();
                     try {
                         date = format.parse(dateString);
@@ -157,11 +170,9 @@ public class MainActivity extends AppCompatActivity {
                     String name = itemHelper.getName(itemLabel);
                     int expirationDays = itemHelper.getExpiration(itemLabel);
 
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(date);
-                    cal.add(Calendar.DATE, expirationDays);
+                    Date expirationDate = ItemHelper.getExpirationDate(date, expirationDays);
 
-                    Item item = new Item(itemLabel, name, date, cal.getTime());
+                    Item item = new Item(itemLabel, name, date, expirationDate);
                     itemList.add(item);
                 }
                 updateView(itemList);
@@ -238,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
             ItemDetailClickListener(Item item)
             {
                 this.item = item;
-                SmartFood.getInstance().clickedItem = item;
             }
 
             @Override

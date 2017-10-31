@@ -29,5 +29,65 @@
             <TextView android:id="@+id/item_detail_expiration" android:textSize="18sp" android:layout_margin="5dp"/>
         </GridLayout>
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Recipes"
+        android:layout_gravity="center_horizontal|center"
+        android:background="#8cbdaa"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="256px"
+            android:layout_height="210.5px"
+            android:src="@drawable/apfelkuchen"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swabian Apple Pie"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredients: 8 Apples, 500g Mehl, 250g Zucker..."
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </LinearLayout><LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="256px"
+        android:layout_height="210.5px"
+        android:src="@drawable/apfelstrudel"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Omis Apple Strudel"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredients: 3 Apples, 200g Mehl, 150g Rohrzucker..."
+            android:textSize="16sp"/>
+    </LinearLayout>
+</LinearLayout>
 
 </LinearLayout>

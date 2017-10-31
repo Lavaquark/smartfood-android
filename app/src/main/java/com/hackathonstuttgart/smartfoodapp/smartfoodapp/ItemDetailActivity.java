@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.hackathonstuttgart.smartfoodapp.smartfoodapp.data.Item;
 import com.hackathonstuttgart.smartfoodapp.smartfoodapp.helper.ItemHelper;
 
+import java.util.Date;
+
 public class ItemDetailActivity extends AppCompatActivity {
 
     private Item item;
@@ -28,13 +30,29 @@ public class ItemDetailActivity extends AppCompatActivity {
         String label = item.getLabel();
 
         int imgRes = ItemHelper.getInstance().getImageId(label);
+        imageDetailView.setImageResource(imgRes);
 
         titleTextView.setText(item.getDisplayName());
         addedTextView.setText(item.getDateString());
-        expirationTextView.setText(item.getExpirationDays() + " days");
-        imageDetailView.setImageResource(imgRes);
-    }
+        long expirationDays = item.getExpirationDays();
 
+        String expireString;
+        if(expirationDays == Integer.MAX_VALUE)
+            expireString = "never";
+        else if (expirationDays == Integer.MIN_VALUE)
+            expireString = "unknown";
+        else if (expirationDays == 0)
+            expireString = "today";
+        else if (expirationDays == 1)
+            expireString = "tomorrow";
+        else if (expirationDays == -1)
+            expireString = "yesterday";
+        else if (expirationDays < 0)
+            expireString = (-expirationDays) + " days ago";
+        else
+            expireString = "in " + expirationDays + " days";
+        expirationTextView.setText(expireString);
+    }
     @Override
     protected void onStart() {
         super.onStart();

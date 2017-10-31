@@ -2,6 +2,8 @@ package com.hackathonstuttgart.smartfoodapp.smartfoodapp.helper;
 
 import com.hackathonstuttgart.smartfoodapp.smartfoodapp.data.Item;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,6 +47,14 @@ public class ItemHelper {
         if(labelToExpirationMap.containsKey(label))
             return labelToExpirationMap.get(label);
         return -1;
+    }
+
+    public static Date getExpirationDate(Date date, int expirationDays)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, expirationDays);
+        return cal.getTime();
     }
 
     public String getName(String label)

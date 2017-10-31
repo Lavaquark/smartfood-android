@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "477758386212",
-    "firebase_url": "https://smartfood-184220.firebaseio.com",
-    "project_id": "smartfood-184220",
-    "storage_bucket": "smartfood-184220.appspot.com"
+    "project_number": "382600042479",
+    "firebase_url": "https://smartfood-5905a.firebaseio.com",
+    "project_id": "smartfood-5905a",
+    "storage_bucket": "smartfood-5905a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:477758386212:android:61da8fd367e19309",
+        "mobilesdk_app_id": "1:382600042479:android:61da8fd367e19309",
         "android_client_info": {
           "package_name": "com.hackathonstuttgart.smartfoodapp.smartfoodapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "477758386212-09ldkfpvq13138491o7icudc8jnve1kg.apps.googleusercontent.com",
+          "client_id": "382600042479-bbtep27ik96fjg7dnr5ufihr9mql2vda.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hackathonstuttgart.smartfoodapp.smartfoodapp",
@@ -23,13 +23,16 @@
           }
         },
         {
-          "client_id": "477758386212-m5ufv9r8f62con8eju9otchvk42rev0i.apps.googleusercontent.com",
+          "client_id": "382600042479-9rntf3m34bbqakfqrfpgcfod8lmt0fn0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDgIwx4jebWxH_5qW8PFb-HWc4ySWkJN64"
+          "current_key": "AIzaSyDBudYNu0SFycx2Pkp6nS_iXahp0nneXBg"
+        },
+        {
+          "current_key": "AIzaSyAn1OzAoJZmpEr2R6w_sZgCwnAmaJunsSM"
         }
       ],
       "services": {
@@ -40,7 +43,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "477758386212-m5ufv9r8f62con8eju9otchvk42rev0i.apps.googleusercontent.com",
+              "client_id": "382600042479-9rntf3m34bbqakfqrfpgcfod8lmt0fn0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
